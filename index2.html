@@ -1,0 +1,23 @@
+<html>
+    <script>
+        (function(){
+            fetch('https://app.omnis1.com/api/users', {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'username':'ncohen',
+                    'password':'faksdnjk',
+                    'email':'nate@omnis1.com',
+                    'permissions':JSON.stringify(false),
+                }) 
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.write(JSON.stringify(data));
+            });
+        }) ();
+    </script>
+</html>
