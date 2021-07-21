@@ -1,0 +1,98 @@
+
+<html>
+    <title>
+        Form submission example
+    </title>
+    <style>
+        form {
+            margin: 0 auto;
+            width: 500 px;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 1em;
+        }
+
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        form li + li {
+            margin-top: 1em;
+        }
+        
+        label {
+            display: inline-block;
+            font: 1em Arial;
+            width: 90px;
+            text-align: right;
+        }
+
+        input {
+            font: 1em Arial;
+            width: 300 px;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: #000;
+        }
+
+        .button {
+            padding-left: 90px;
+        }
+
+        button {
+            margin-left: .5em
+        }
+    </style>
+    <body>
+        <center>
+            Create a Log In
+        </center>
+        <form class='form' onsubmit="newUser(this)">
+            <ul>
+                <li>
+                    <label for='username'>Username:</label>
+                    <input type='text' id='username' name='username' />
+                </li>
+                <li>
+                    <label for='email'>Email:</label>
+                    <input type='email' id='email' name='user_email' />
+                </li>
+                <li>
+                    <label for='password'>Password:</label>
+                    <input type='text' id='password' name='user_password' />
+                </li>
+                <li class='button'>
+                    <button type='submit'>Submit</button>
+                </li>
+            </ul>
+        </form>
+        <script>
+            function newUser(this){
+                event.preventDefault();
+                var formData = new FormData(this)
+                var object = {};
+                formData.forEach(function(value, key){
+                    object[key] = value;            
+                });
+                fetch('https://app.omnis1.com/api/users', {
+                    method: 'POST',
+                    headers: {
+                        accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: {
+                        'permissions': JSON.stringify(false)
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.write(JSON.stringify(data));
+                });
+            }
+        </script>
+    </body>
+</html>
